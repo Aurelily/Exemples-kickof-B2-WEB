@@ -1,54 +1,29 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
-
-function MyButton(props){
-  return (
-    <button>
-      {props.myParam}
-    </button>
-  )
-}
-
-function MyForm(props){
-
-  return (
-    <form method="POST" >
-      <label>Ajouter un pseudo</label>
-      <input onChange={(e)=>{props.handleSetName(e.target.value)}} type="text" name="form_name" placeholder='a new pseudo in db'/>
-      <button type='button' onClick={props.registerName}>Sauvegarder</button>
-    </form>
-  )
-}
-
-
-
-export default function MyApp(){
+export default function MyApp(){ 
   const [name,setName] = useState('');
   const [notif, setNotif] = useState('');
-  const [isFetch, setIsFetch] = useState(false);
-  const [user, setUser] = useState([]);
+
+  const [isFetch, setIsFetch] = useState(true);
+  const [userList, setUserList] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!isFetch) {
-        let test = await getAllUser();
-        setUser(test);
-        setIsFetch(true);
+        let test = await getAllUserList();
+        setUserList(test);
+        setIsFetch(false);
         console.log(test,'ccc')
-      }
-      console.log('useEffect', name);
     };
-    if(!isFetch)
-      fetchData(); // Appelez la fonction asynchrone immédiatement
+    if(isFetch)
+      fetchData(); 
   
-  }, []); // Assurez-vous d'inclure les dépendances nécessaires (name et isFetch)
+  }, [isFetch]); // On met isFetch pour que le useEffect fonctionne a chaque nouveau POST
 
-  async function getAllUser(){
-    const response = await fetch('http://localhost/vite-project/traitement.php?getAllUsers', {
+  async function getAllUserList(){
+    const response = await fetch('http://localhost/Exemples-kickof-B2-WEB/useEffect/traitement.php?getAllUsers', {
       method:'GET',
       mode: 'cors',
     })
@@ -57,56 +32,41 @@ export default function MyApp(){
     return result
   }
 
-  function handleSetName(value){
-    setName(value)
-  }
-
   async function registerName() {
-    // try {
-      let formData = new FormData();
-      formData.append('name', name)
-      const response = await fetch('http://localhost/vite-project/traitement.php', {
-        method:'POST',
-        body: formData,
-        mode: 'cors',
+    let formData = new FormData();
+    formData.append('name', name)
+    const response = await fetch('http://localhost/Exemples-kickof-B2-WEB/useEffect/traitement.php', {
+      method:'POST',
+      body: formData,
+      mode: 'cors',
+    })
+    const result = await response.json()
+    setNotif(result);
+    setIsFetch(true)
+    console.log(result,'cc')
 
-      })
-      const result = await response.json()
-      setNotif(result);
-      setIsFetch(false)
-      console.log(result,'cc')
-    // } catch (error) {
-    //   console.log(error, 'fakkk')
-    // }
-  }
+}
+
   return (
     <div>
       <div>
-        <h1>Welcome to my app</h1>
-        <MyButton myParam={'+'}/>
-        <MyButton myParam={'-'}/>
-        <MyButton myParam={'*'}/>
-        <MyButton myParam={'/'}/>
-        <MyButton myParam={'%'}/>
-        <MyButton myParam={'='}/>
-      </div>
-      <div>
-        <MyForm handleSetName={handleSetName} registerName={registerName} />
+      <form method="POST" >
+          <label>Ajouter un pseudo</label>
+          <input onChange={(e)=>{setName(e.target.value)}} type="text" name="form_name" placeholder='a new pseudo in db'/>
+          <button type='button' onClick={registerName}>Sauvegarder</button>
+    </form>
       </div>
       <span>{notif}</span>
       
-      {user.length > 0 && user.map(element => {
+      {userList.length > 0 && userList.map((element,index) => {
         return (
-          <UserElement key={element.id} user={element}/>
+          <div key={index}>
+            <p>{element.name}</p>
+          </div>
         )
       })}
+
     </div>
   )
 }
-function UserElement(props){
-  return (
-    <div>
-      <p>{props.user.name}</p>
-    </div>
-  )
-}
+

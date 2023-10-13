@@ -16,6 +16,5 @@ if(isset($_POST['name'])){
 if(isset($_GET['getAllUsers'])){
     $result = $user->getUsers();
     echo json_encode($result);
-
 }
 ?>
