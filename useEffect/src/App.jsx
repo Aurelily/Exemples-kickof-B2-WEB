@@ -56,7 +56,7 @@ export default function MyApp(){
           <button type='button' onClick={registerName}>Sauvegarder</button>
     </form>
       </div>
-      <span>{notif}</span>
+      <span className="color-positive">{notif}</span>
       
       {userList.length > 0 && userList.map((element,index) => {
         return (
