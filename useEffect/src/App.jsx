@@ -23,9 +23,9 @@ export default function MyApp(){
   }, [isFetch]); // On met isFetch pour que le useEffect fonctionne a chaque nouveau POST
 
   async function getAllUserList(){
-    const response = await fetch('http://localhost/Exemples-kickof-B2-WEB/useEffect/traitement.php?getAllUsers', {
+    const response = await fetch('http://localhost/B2-WEB-2023-2024/Exemples-kickof-B2-WEB/useEffect/traitement.php?getAllUsers', {
       method:'GET',
-      mode: 'cors',
+
     })
     const result = await response.json()
 
@@ -35,10 +35,10 @@ export default function MyApp(){
   async function registerName() {
     let formData = new FormData();
     formData.append('name', name)
-    const response = await fetch('http://localhost/Exemples-kickof-B2-WEB/useEffect/traitement.php', {
+    const response = await fetch('http://localhost/B2-WEB-2023-2024/Exemples-kickof-B2-WEB/useEffect/traitement.php', {
       method:'POST',
       body: formData,
-      mode: 'cors',
+ 
     })
     const result = await response.json()
     setNotif(result);
