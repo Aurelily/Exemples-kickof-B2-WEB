@@ -9,7 +9,7 @@ function App() {
   return (
     <>
 
-      <h1>Formulaire</h1>
+      <h1>My Form</h1>
       <MyForm/>
       
     </>

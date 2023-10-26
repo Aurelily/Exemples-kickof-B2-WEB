@@ -1,41 +1,59 @@
 import React from 'react';
-import useForm from '../customs/useForm';
+import useForm from '../hooks/useForm';
 
 const MyForm = () => {
   
+  // Fonction de validation de mon formulaire
+
   const validateForm = (values) => {
     const errors = {};
-    if (!values.name) {
-      errors.name = 'Le champ nom est requis';
+    if (!values.login) {
+      errors.login = 'Le champ nom est requis';
+    }else{
+      errors.login = '';
     }
-    if (!values.email) {
-      errors.email = 'Le champ email est requis';
+    if (!values.password) {
+      errors.password = 'Le champ email est requis';
+    }else{
+      errors.password = '';
     }
     return errors;
   };
 
+  // Utilisation de mon custom hook : useForm = (initialState, validationCallback)
+  // ------------------------------------------------------------------------------
+  // 1er argument : Objet initial qui représente l'état initial du formulaire
+  // 2ème argument : Fonction de validation définie précédemment
+
   const { values, errors, isSubmitting, handleChange, handleSubmit } = useForm(
-    { name: '', email: '' },
+    { login: '', password: '' },
     validateForm
   );
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="login">Login</label>
       <input
         type="text"
-        name="name"
-        value={values.name}
+        name="login"
+        id="login"
+        value={values.login}
         onChange={handleChange}
+        onKeyUp={handleChange}
+        onBlur={handleChange}
       />
-      {errors.name && <p>{errors.name}</p>}
-
+      {errors.login && <p className='error'>{errors.login}</p>}
+      <label htmlFor="password">Password</label>
       <input
-        type="email"
-        name="email"
-        value={values.email}
+        type="password"
+        name="password"
+        id="password"
+        value={values.password}
         onChange={handleChange}
+        onKeyUp={handleChange}
+        onBlur={handleChange}
       />
-      {errors.email && <p>{errors.email}</p>}
+      {errors.password && <p className='error'>{errors.password}</p>}
 
       <button type="submit" disabled={isSubmitting}>
         Soumettre
