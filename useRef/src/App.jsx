@@ -1,33 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useRef } from 'react'
 import './App.css'
+import { useEffect } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const inputRef = useRef(0)
+
+  const isButtonClicked = useRef(false)
+
+  console.log(inputRef);
+
+  const handleClick = () =>{
+    if(isButtonClicked.current){
+      console.log("already clicked");
+      return;
+    }
+    console.log("Clicked");
+    isButtonClicked.current = true;
+  }
+
+  useEffect(()=>{
+    inputRef.current.focus()
+    inputRef.current.style.background = "red"
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <input type="text" ref={inputRef}/>
+
+      {/* ref peut aussi etre une fonction callback concernant l'élément sur lequel il se trouve afin de le manipuler à son premier render. Pas besoin d'un useEffect*/}
+      <input type="text" ref={(input)=>{
+        console.log(input);
+        input.style.background = "green"
+      }}/>
+
+      <button onClick={handleClick}>Cliquez moi</button>
     </>
   )
 }
