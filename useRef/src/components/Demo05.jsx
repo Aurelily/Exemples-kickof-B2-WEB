@@ -15,7 +15,7 @@ function Demo05() {
         <p>Contenu de la modal</p>
       </div>
 
-      <button onClick={()=>{modalRef.current.style.display = 'block';}}>OPEN</button>
+      <button onClick={()=>{modalRef.current.style.display = 'block'; console.log(modalRef.current);}}>OPEN</button>
     </div>
   );
 }

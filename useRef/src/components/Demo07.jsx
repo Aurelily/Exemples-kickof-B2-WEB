@@ -25,7 +25,7 @@ export default function Demo07() {
   function handleScrollToThirdCat() {
     thirdCatRef.current.scrollIntoView({
       behavior: 'smooth',
-      block: 'nearest',
+      block: 'nearest', 
       inline: 'center'
     });
   }
