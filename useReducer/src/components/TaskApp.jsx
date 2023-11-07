@@ -44,13 +44,13 @@ export default function TaskApp() {
     <TasksContext.Provider value = {tasks}>
       <TasksDispatchContext.Provider value={dispatch}>
         <h1>ToDo List</h1>
-       {/*  Etape 3 : Je peux supprimer le passage de props de mes composants !
-        <AddTask
+       {/*  Etape 3 : Je peux supprimer le passage de props de mes composants !*/}
+      {/*   <AddTask
           onAddTask={handleAddTask}
-        /> */}
+        />  */}
          <AddTask/>
         {/* Initialement : TaskApp passe une liste de taches (via le state "tasks") et des gestionnaires d'evenements au composant TaskList */}
-      {/*   <TaskList
+       {/*   <TaskList
           tasks={tasks}
           onChangeTask={handleChangeTask}
           onDeleteTask={handleDeleteTask}
@@ -94,7 +94,7 @@ function tasksReducer(tasks, action) {
 // Liste de tache et ID "en dur" dans une variable et un objet ci dessous. Pas de BDD dans cet exemple
 // -----------------------------------------------------------------------------------------------------
 /* Etape 3 : Je mets cette variable directement dans le composant AddTask */
-/* let nextId = 3; */
+let nextId = 3;
 const initialTasks = [
   { id: 0, text: 'Faire la vaisselle', done: true },
   { id: 1, text: 'Changer ampoule sdb', done: false },

@@ -33,7 +33,7 @@ export default function App() {
 
 // DEMO 1 : On utilise le context dans Section afin de diffuser le props level dans tous les enfants des Sections
 //-------------------------------------------------------------------------------------------------------
-/*  <Section level={1}>
+ <Section level={1}>
       <Heading>Title</Heading>
       <Section level={2}>
         <Heading>Heading</Heading>
@@ -50,11 +50,11 @@ export default function App() {
           </Section>
         </Section>
       </Section>
-    </Section> */
+    </Section>
 
 // DEMO 2 : On peut faire encore mieux en intégrant l'opération "level +1" dans la value du Provider pour incrémenter level automatiquement dans les enfants de Section sans avoir à le faire à la main comme précédemment
 //-------------------------------------------------------------------------------------------------------
-    <Section>
+/*     <Section>
     <Heading>Title</Heading>
     <Section>
       <Heading>Heading</Heading>
@@ -71,7 +71,7 @@ export default function App() {
         </Section>
       </Section>
     </Section>
-  </Section>
+  </Section> */
   )
 }
 

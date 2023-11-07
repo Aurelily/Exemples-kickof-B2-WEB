@@ -18,10 +18,10 @@ export default function TaskList() {
       {tasks.map(task => (
         <li key={task.id}>
         {/* Initialement : TaskList passe des gestionnaires d'evenements au composant Task */}
-       {/*    <Task
+     {/*      <Task
             task={task}
-            onChange={onChangeTask}
-            onDelete={onDeleteTask}
+            onChangeTask={onChangeTask}
+            onDeleteTask={onDeleteTask}
           /> */}
         <Task task={task}/>
         </li>
@@ -33,20 +33,21 @@ export default function TaskList() {
 // Composant Task
 //-------------------
 
-function Task({ task }) {
+function Task({ task, /* initialement avant context -->*/ /* onChangeTask,onDeleteTask */ }) {
   const [isEditing, setIsEditing] = useState(false);
 
   // Etape 3 : J'utilise le context pour avoir accès à la méthode dispatch() et aux méthodes du CRUD qu'il y a dedans
   const dispatch = useContext(TasksDispatchContext);
 
   let taskContent;
+
   if (isEditing) {
     taskContent = (
       <>
         <input
           value={task.text}
           onChange={e => {
-            /* onChange({
+            /* onChangeTask({
               ...task,
               text: e.target.value */
               dispatch({
@@ -78,7 +79,7 @@ function Task({ task }) {
         type="checkbox"
         checked={task.done}
         onChange={e => {
-          /* onChange({
+          /* onChangeTask({
             ...task,
             done: e.target.checked */
             dispatch({
@@ -91,7 +92,7 @@ function Task({ task }) {
         }}
       />
       {taskContent}
-      <button onClick={() => /* onDelete(task.id) */
+      <button onClick={() => /* onDeleteTask(task.id) */
     {
       dispatch({
         type: 'DELETED',
