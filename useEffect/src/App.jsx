@@ -25,6 +25,7 @@ export default function MyApp(){
   async function getAllUserList(){
     const response = await fetch('http://localhost/B2-WEB-2023-2024/Exemples-kickof-B2-WEB/useEffect/traitement.php?getAllUsers', {
       method:'GET',
+      mode:'cors'
 
     })
     const result = await response.json()
